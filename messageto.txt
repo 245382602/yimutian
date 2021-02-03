@@ -1,0 +1,13 @@
+近五年有蔬菜合同客户
+select distinct temp.cMobilePhone
+from (
+select ym.cMobilePhone,sum(AmountPrice) as jine
+From YXShop_Administrators ya inner join  YXShop_MemberInfo ym on ya.Admin_ID = ym.CreaterAdmin
+inner join Yxshop_UserCommon yu on yu.UID=ym.UID
+inner join YXShop_MemberShip ym2 on ym2.userid=yu.uid and 
+ (Hopeapplication in(1,2)) 
+where  ym2.Creatime>dateadd(year,-5,getdate())
+and len(ym.cMobilePhone)=11
+and left(ym.cMobilePhone,1)='1'
+group by yu.UserName,ya.Real_Name,ym.cMobilePhone
+having sum(AmountPrice)>10000) temp;
