@@ -9,5 +9,14 @@ inner join YXShop_MemberShip ym2 on ym2.userid=yu.uid and
 where  ym2.Creatime>dateadd(year,-5,getdate())
 and len(ym.cMobilePhone)=11
 and left(ym.cMobilePhone,1)='1'
+and ya.Real_Name not in (
+'admin',
+'nevercall',
+'灰名单',
+'重复数据',
+'员工卡',
+'黑名单',
+'外地客户',
+'无效资料')--排除库
 group by yu.UserName,ya.Real_Name,ym.cMobilePhone
 having sum(AmountPrice)>10000) temp;
